@@ -31,7 +31,9 @@ struct Download {
         if (ss.fail()) {
             return make_data_fatal("Invalid line format");
         }
-        ss >> std::skipws;
+        while (ss.peek() == ' ') {
+            ss.get();
+        }
         const std::string value{std::istreambuf_iterator<char>{ss}, {}};
 
         return make_data_normal(timestamp, value);
